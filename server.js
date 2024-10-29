@@ -1,34 +1,22 @@
-// Load environment variables from .env file
-require('dotenv').config();
-
 const express = require('express');
-const mysql = require('mysql');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// MySQL database connection
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+// Middleware
+app.use(cors()); // Enable CORS
+app.use(bodyParser.json()); // Parse JSON bodies
+
+// POST route to handle sign up
+app.post('/signup', (req, res) => {
+    const { firstname, middlename, lastname } = req.body;
+    console.log('Received data:', { firstname, middlename, lastname }); // Log the received data
+    res.json({ message: 'Sign up successful!', receivedData: req.body });
 });
 
-// Connect to MySQL database
-db.connect((err) => {
-    if (err) {
-        console.error('Database connection failed:', err);
-        return;
-    }
-    console.log('Connected to the database.');
-});
-
-// Basic route for testing the connection
-app.get('/', (req, res) => {
-    res.send('Server is running and connected to the database!');
-});
-
-// Start server
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
