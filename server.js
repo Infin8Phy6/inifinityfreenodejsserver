@@ -16,7 +16,7 @@ app.post('/signup', async (req, res) => {
 
     try {
         // Send data to PHP file
-        const response = await axios.post('https://your-php-url.com/yourfile.php', {
+        const response = await axios.post('http://edufiles.great-site.net/insert.php', {
             firstname,
             middlename,
             lastname
