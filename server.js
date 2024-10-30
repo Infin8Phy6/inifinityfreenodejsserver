@@ -1,44 +1,27 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const axios = require('axios'); // Import axios for making HTTP requests
+const mysql = require('mysql');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
-
-// POST route to handle sign up
-app.post('/signup', async (req, res) => {
-    const { firstname, middlename, lastname } = req.body;
-    console.log('Received data:', { firstname, middlename, lastname });
-
-    // Prepare data for sending to PHP file
-    const dataToSend = {
-        firstname,
-        middlename,
-        lastname
-    };
-
-    try {
-        // Send data to the PHP file
-        const phpResponse = await axios.post('http://edufiles.great-site.net/insert.php', dataToSend);
-        
-        // Respond back to the Flutter app
-        res.json({
-            message: 'Sign up successful!',
-            receivedData: req.body,
-            phpResponse: phpResponse.data
-        });
-    } catch (error) {
-        console.error('Error sending data to PHP:', error);
-        res.status(500).json({ message: 'Failed to send data to PHP file' });
-    }
+// Database connection configuration
+const connection = mysql.createConnection({
+  host: 'sql213.infinityfree.com',
+  user: 'if0_37577611',
+  password: 'XFsOYKAFtpl',
+  database: 'if0_37577611_depedv1'
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+// Connect to the database
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database: ', err);
+    return;
+  }
+  console.log('Connected to the MySQL database');
+
+  // Close the connection after logging
+  connection.end((err) => {
+    if (err) {
+      console.error('Error closing the connection: ', err);
+    } else {
+      console.log('Connection closed');
+    }
+  });
 });
