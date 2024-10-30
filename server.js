@@ -1,27 +1,12 @@
-const mysql = require('mysql');
+const express = require('express');
+const app = express();
+const PORT = 3000; // You can change the port if needed
 
-// Database connection configuration
-const connection = mysql.createConnection({
-  host: '185.27.134.215',
-  user: 'if0_37577611',
-  password: 'XFsOYKAFtpl',
-  database: 'if0_37577611_depedv1'
+// Endpoint to send JSON data
+app.get('/greet', (req, res) => {
+    res.json({ Greetings: 'Hi from the server!' });
 });
 
-// Connect to the database
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to the database: ', err);
-    return;
-  }
-  console.log('Connected to the MySQL database');
-
-  // Close the connection after logging
-  connection.end((err) => {
-    if (err) {
-      console.error('Error closing the connection: ', err);
-    } else {
-      console.log('Connection closed');
-    }
-  });
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });

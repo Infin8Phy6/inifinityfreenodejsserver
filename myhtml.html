@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Server Greeting</title>
+</head>
+<body>
+    <div id="output"></div>
+
+    <script>
+        // Fetch the greeting from the server
+        fetch('http://edufiles.great-site.net/server.js/greet')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Decode the JSON data
+            })
+            .then(jsonData => {
+                // Echo out the information in a div
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = `<h1>${jsonData.Greetings}</h1>`; // Display the greeting
+            })
+            .catch(error => {
+                console.error('Error fetching JSON data:', error);
+            });
+    </script>
+</body>
+</html>
