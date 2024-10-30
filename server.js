@@ -2,7 +2,7 @@ const mysql = require('mysql');
 
 // Database connection configuration
 const connection = mysql.createConnection({
-  host: 'sql213.infinityfree.com',
+  host: '185.27.134.215',
   user: 'if0_37577611',
   password: 'XFsOYKAFtpl',
   database: 'if0_37577611_depedv1'
