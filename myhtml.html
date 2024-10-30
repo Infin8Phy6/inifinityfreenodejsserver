@@ -6,11 +6,14 @@
     <title>Display Server Greeting</title>
 </head>
 <body>
-    <div id="output"></div>
+    <div id="output"> <p>h</p></div>
 
     <script>
+        // Replace with your Render server URL
+        const apiUrl = 'https://inifinityfreenodejsserver.onrender.com/greet'; // Use the actual URL provided by Render
+
         // Fetch the greeting from the server
-        fetch('http://edufiles.great-site.net/greet')
+        fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -18,9 +21,12 @@
                 return response.json(); // Decode the JSON data
             })
             .then(jsonData => {
-                // Echo out the information in a div
+                // Print the greeting to the console
+                console.log(jsonData.Greetings); // Output in console
+
+                // Display the greeting in the output div
                 const outputDiv = document.getElementById('output');
-                outputDiv.innerHTML = `<h1>${jsonData.Greetings}</h1>`; // Display the greeting
+                outputDiv.innerHTML = `<h1>${jsonData.Greetings}</h1>`; // Display in HTML
             })
             .catch(error => {
                 console.error('Error fetching JSON data:', error);
